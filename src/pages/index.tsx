@@ -8,20 +8,20 @@ import { gql } from '@apollo/client';
 const inter = Inter({ subsets: ['latin'] });
 
 export const getStaticProps = async () => {
-  const { data } = await GraphQlClient.query({
-    query: gql`
-      query NewQuery {
-        pages {
-          nodes {
-            title
-          }
-        }
-      }
-    `,
-  });
+  // const { data } = await GraphQlClient.query({
+  //   query: gql`
+  //     query NewQuery {
+  //       pages {
+  //         nodes {
+  //           title
+  //         }
+  //       }
+  //     }
+  //   `,
+  // });
   return {
     props: {
-      data,
+      // data,
       propsTeste: 'Isso é um teste estático de props',
       propsNaoPassar: 'Isso é um teste',
     },
