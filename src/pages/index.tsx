@@ -34,7 +34,7 @@ interface IHomeProps {
 }
 
 export default function Home({ data, propsTeste }: IHomeProps) {
-  console.log('PROPS', data, propsTeste);
+  console.log('PROP', data, propsTeste);
   return (
     <>
       <Head>
