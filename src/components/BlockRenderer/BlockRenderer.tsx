@@ -2,7 +2,7 @@ import { Column } from '../Column';
 import { Columns } from '../Columns';
 
 export function BlockRenderer({ blocks }: any) {
-  return blocks.map((block) => {
+  return blocks.map((block: any) => {
     switch (block.name) {
       case 'core/columns':
         return (
