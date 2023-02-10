@@ -5,7 +5,7 @@ export const cleanAndTransformBlocks = (blocksJSON: any) => {
 
   const assignId = (blocks: any[]) => {
     blocks.forEach((block) => {
-      block.id = randomUUID();
+      block.id = 'b854d3bd-6c07-4240-a614-f325e19d9891';
       if (block.innerBlocks?.length) {
         assignId(block.innerBlocks);
       }
