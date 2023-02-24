@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Inter } from '@next/font/google';
 import styles from '@/styles/Home.module.css';
-import GraphQlClient from '@/config/GraphQlClient';
+import GraphQlServer from '@/config/GraphQlServer';
 import { gql } from '@apollo/client';
 import { BlockRenderer } from '@/components/BlockRenderer/BlockRenderer';
 import { cleanAndTransformBlocks } from '@/utils/cleanAndTransformBlocks';
@@ -11,7 +11,7 @@ import '@wordpress/block-library/build-style/style.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const getStaticProps = async () => {
-  const { data } = await GraphQlClient.query({
+  const { data } = await GraphQlServer.query({
     query: gql`
       query NewQuery {
         nodeByUri(uri: "/hello-test") {
