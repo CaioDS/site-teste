@@ -6,6 +6,7 @@ export const config = {
 };
 
 export function middleware(req: NextRequest) {
+  console.log('teste', req.nextUrl.pathname);
   req.nextUrl.pathname = '/api/proxy';
 
   return NextResponse.rewrite(req.nextUrl);
