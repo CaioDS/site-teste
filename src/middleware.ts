@@ -1,4 +1,4 @@
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import { reverseProxy } from './lib/ReverseProxy';
 
 // import { NextResponse } from 'next/server';
 // import type { NextRequest } from 'next/server';
@@ -28,22 +28,14 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 //   return NextResponse.rewrite(req.nextUrl);
 // }
 
-const reverseProxy = createProxyMiddleware({
-  target: `${process.env.TARGET_URI}`,
-  changeOrigin: true,
-  xfwd: true,
-});
-
-async function headers() {
-  return [
-    {
-      source: '/contato',
-      destination: '/contato',
-      middleware: reverseProxy,
-    },
-  ];
-}
-
 module.exports = {
-  headers,
+  async headers() {
+    return [
+      {
+        source: '/contato',
+        destination: '/contato',
+        middleware: reverseProxy,
+      },
+    ];
+  },
 };
