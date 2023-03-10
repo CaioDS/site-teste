@@ -1,6 +1,6 @@
-import { createProxyMiddleware } from 'http-proxy-middleware';
+const httpProxy = require('http-proxy');
 
-export const reverseProxy = createProxyMiddleware({
+export const reverseProxy = httpProxy.createProxyMiddleware({
   target: `${process.env.TARGET_URI}`,
   changeOrigin: true,
   xfwd: true,
