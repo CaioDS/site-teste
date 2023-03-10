@@ -5,7 +5,7 @@ export const config = {
   runtime: 'edge',
 };
 
-module.exports = async (event: any, context: any) => {
+export default async (event: any, context: any) => {
   console.log(event, context);
   const url = `${process.env.TARGET_URI}/contato`;
   const response = await fetch(url);
