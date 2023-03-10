@@ -1,9 +1,0 @@
-{
-    "routes": [
-      {
-        "src": "/contato",
-        "methods": ["GET"],
-        "dest": "/edge/fetchContato"
-      }
-    ]
-}

@@ -6,7 +6,7 @@ export const config = {
 };
 
 module.exports = createProxyMiddleware({
-  target: `${process.env.TARGET_URI}`,
+  target: `${process.env.TARGET_URI}/contato`,
   changeOrigin: true,
   xfwd: true,
 });
