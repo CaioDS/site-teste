@@ -14,7 +14,7 @@ export function middleware(req: NextRequest) {
 
   // Specify the correct route based on the requests location
 
-  req.nextUrl.pathname = '/x';
+  req.nextUrl.pathname = '/';
 
   // Rewrite to URL
   return NextResponse.rewrite(req.nextUrl);
