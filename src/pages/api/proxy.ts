@@ -1,13 +1,13 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest } from 'next/server';
 import fetch from 'node-fetch';
 
 export const config = {
   runtime: 'edge',
 };
 
-export default async (event: any, context: any) => {
-  console.log('Evento: ', event, 'Contexto: ', context);
-  const url = `${process.env.TARGET_URI}/contato`;
+export default async (request: NextRequest, context: any) => {
+  const url = `${process.env.TARGET_URI}${request.nextUrl.pathname}${request.nextUrl.search}`;
+  console.log('Evento: ', request, 'Contexto: ', context, 'URL', url);
   const response = await fetch(url);
   const data = await response.text();
 
