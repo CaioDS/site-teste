@@ -6,7 +6,7 @@ export const config = {
 };
 
 export default async (event: any, context: any) => {
-  console.log(event, context);
+  console.log('Evento: ', event, 'Contexto: ', context);
   const url = `${process.env.TARGET_URI}/contato`;
   const response = await fetch(url);
   const data = await response.text();
