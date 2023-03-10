@@ -16,7 +16,6 @@ export function middleware(req: NextRequest) {
 
   if (pageKey !== Pages.HOME && pageKey !== Pages.METHODOLOGY) {
     req.nextUrl.pathname = '/api/proxy';
-
-    return NextResponse.rewrite(req.nextUrl);
   }
+  return NextResponse.rewrite(req.nextUrl);
 }
