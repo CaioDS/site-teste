@@ -1,15 +1,22 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import fetch from 'node-fetch';
 
 export const config = {
   runtime: 'edge',
 };
 
-module.exports = createProxyMiddleware({
-  target: `${process.env.TARGET_URI}/contato`,
-  changeOrigin: true,
-  xfwd: true,
-});
+module.exports = async (event: any, context: any) => {
+  console.log(event, context);
+  const url = `${process.env.TARGET_URI}/contato`;
+  const response = await fetch(url);
+  const data = await response.text();
+
+  return new Response(data, {
+    headers: {
+      'content-type': 'text/html',
+    },
+  });
+};
 
 // type Data = {
 //   name: string;
