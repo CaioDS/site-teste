@@ -2,12 +2,21 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export const config = {
-  matcher: '/contato',
+  matcher: '/*',
 };
 
-export function middleware(req: NextRequest) {
-  console.log('teste', req.nextUrl.pathname);
-  req.nextUrl.pathname = '/api/proxy';
+enum Pages {
+  HOME = '/',
+  METHODOLOGY = '/methodology',
+}
 
-  return NextResponse.rewrite(req.nextUrl);
+export function middleware(req: NextRequest) {
+  console.log('Pagina', req.nextUrl.pathname);
+  const pageKey: string = req.nextUrl.pathname;
+
+  if (pageKey !== Pages.HOME && pageKey !== Pages.METHODOLOGY) {
+    req.nextUrl.pathname = '/api/proxy';
+
+    return NextResponse.rewrite(req.nextUrl);
+  }
 }
