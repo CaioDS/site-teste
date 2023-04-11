@@ -1,20 +1,30 @@
+import fetch, { Headers as FetchHeaders } from 'node-fetch';
 import { NextRequest } from 'next/server';
-import fetch from 'node-fetch';
 
 export const config = {
   runtime: 'edge',
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (request: NextRequest, context: any) => {
   const url = `${process.env.TARGET_URI}${request.nextUrl.pathname}${request.nextUrl.search}`;
   console.log('Evento: ', request, 'Contexto: ', context, 'URL', url);
-  const response = await fetch(url);
+
+  const requestHeaders = new FetchHeaders();
+  requestHeaders.append('X-Origin', `${process.env.PROXY_URI}`);
+
+  const response = await fetch(url, {
+    headers: requestHeaders,
+  });
   const data = await response.text();
 
+  const responseHeaders = new Headers();
+  response.headers.forEach((value, key) => {
+    responseHeaders.append(key, value);
+  });
+
   return new Response(data, {
-    headers: {
-      'content-type': 'text/html',
-    },
+    headers: responseHeaders,
   });
 };
 

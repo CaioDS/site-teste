@@ -9,6 +9,7 @@ enum Pages {
   HOME = '/',
   METHODOLOGY = '/methodology',
   NEXT_PAGES = '/_next',
+  FAVICON = '/favicon.ico',
 }
 
 export function middleware(req: NextRequest) {
@@ -18,6 +19,7 @@ export function middleware(req: NextRequest) {
   if (
     pageKey !== Pages.HOME &&
     pageKey !== Pages.METHODOLOGY &&
+    pageKey !== Pages.FAVICON &&
     !pageKey.includes(Pages.NEXT_PAGES)
   ) {
     req.nextUrl.pathname = '/api/proxy';
