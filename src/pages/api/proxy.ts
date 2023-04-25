@@ -12,6 +12,7 @@ export default async (request: NextRequest, context: any) => {
 
   const requestHeaders = new FetchHeaders();
   requestHeaders.append('X-Origin', `${process.env.PROXY_URI}`);
+  requestHeaders.append('Access-Control-Allow-Origin', `*`);
 
   const response = await fetch(url, {
     headers: requestHeaders,
