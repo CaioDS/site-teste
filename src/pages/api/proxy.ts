@@ -16,6 +16,7 @@ export default async (request: NextRequest, context: any) => {
     'Access-Control-Allow-Origin',
     `https://siteteste.dtidigital.com.br`
   );
+  requestHeaders.append('Access-Control-Allow-Credentials', `true`);
 
   const response = await fetch(url, {
     headers: requestHeaders,
