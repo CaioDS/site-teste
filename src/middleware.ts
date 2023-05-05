@@ -1,3 +1,4 @@
+import { NextURL } from 'next/dist/server/web/next-url';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
@@ -29,28 +30,36 @@ function isImageURI(pageKey: string) {
 
 function isNextPageURI(pageKey: string) {
   return (
-    pageKey !== Pages.HOME &&
-    pageKey !== Pages.METHODOLOGY &&
-    pageKey !== Pages.FAVICON &&
-    !pageKey.includes(Pages.NEXT_PAGES)
+    pageKey === Pages.HOME ||
+    pageKey === Pages.METHODOLOGY ||
+    pageKey === Pages.FAVICON ||
+    pageKey.includes(Pages.NEXT_PAGES)
   );
+}
+
+function decideGatewayURI(
+  pageKey: string,
+  pageSearch: string,
+  requestUrl: NextURL
+): NextURL | string {
+  if (!isNextPageURI(pageKey) && isImageURI(pageKey)) {
+    return `${process.env.TARGET_URI}${pageKey}`;
+  }
+
+  if (!isNextPageURI(pageKey)) {
+    requestUrl.pathname = '/api/proxy';
+    return requestUrl;
+  }
+
+  return requestUrl;
 }
 
 export function middleware(req: NextRequest) {
   console.log('Pagina', req.nextUrl.pathname);
   const pageKey: string = req.nextUrl.pathname;
+  const pageSearch: string = req.nextUrl.search;
 
-  if (!isNextPageURI(pageKey) && isImageURI(pageKey)) {
-    return `${process.env.TARGET_URI}${pageKey}`;
-  }
-
-  if (
-    pageKey !== Pages.HOME &&
-    pageKey !== Pages.METHODOLOGY &&
-    pageKey !== Pages.FAVICON &&
-    !pageKey.includes(Pages.NEXT_PAGES)
-  ) {
-    req.nextUrl.pathname = '/api/proxy';
-  }
-  return NextResponse.rewrite(req.nextUrl);
+  return NextResponse.rewrite(
+    decideGatewayURI(pageKey, pageSearch, req.nextUrl)
+  );
 }
