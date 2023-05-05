@@ -26,7 +26,8 @@ function isImageURI(pageKey: string) {
     pageKey.includes('.psd') ||
     pageKey.includes('.php') ||
     pageKey.includes('wp-json') ||
-    pageKey.includes('wp-content')
+    pageKey.includes('wp-content') ||
+    pageKey.includes('wp-admin')
   );
 }
 
