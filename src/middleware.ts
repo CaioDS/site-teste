@@ -43,13 +43,17 @@ function decideGatewayURI(
   requestUrl: NextURL
 ): NextURL | string {
   if (
-    (!isNextPageURI(pageKey) && isImageURI(pageKey)) ||
-    (isNextPageURI(pageKey) && pageSearch.includes('elementor-preview'))
+    !isNextPageURI(pageKey) &&
+    isImageURI(pageKey)
+    // || (isNextPageURI(pageKey) && pageSearch.includes('elementor-preview'))
   ) {
     return `${process.env.TARGET_URI}${pageKey}${pageSearch}`;
   }
 
-  if (!isNextPageURI(pageKey)) {
+  if (
+    !isNextPageURI(pageKey) ||
+    (isNextPageURI(pageKey) && pageSearch.includes('elementor-preview'))
+  ) {
     requestUrl.pathname = '/api/proxy';
     return requestUrl;
   }
