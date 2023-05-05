@@ -25,7 +25,8 @@ function isImageURI(pageKey: string) {
     pageKey.includes('.bmp') ||
     pageKey.includes('.psd') ||
     pageKey.includes('.php') ||
-    pageKey.includes('wp-json')
+    pageKey.includes('wp-json') ||
+    pageKey.includes('wp-content')
   );
 }
 
