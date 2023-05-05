@@ -44,7 +44,7 @@ function decideGatewayURI(
 ): NextURL | string {
   if (
     (!isNextPageURI(pageKey) && isImageURI(pageKey)) ||
-    (!isNextPageURI(pageKey) && pageSearch.includes('elementor-preview'))
+    (isNextPageURI(pageKey) && pageSearch.includes('elementor-preview'))
   ) {
     return `${process.env.TARGET_URI}${pageKey}${pageSearch}`;
   }
